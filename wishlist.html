@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wishlist - Sportivo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Wishlist Specific Styles */
+        .wishlist-section {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .wishlist-section h2 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .wishlist-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .wishlist-item {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 20px;
+            display: flex;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            border: 1px solid #eee;
+        }
+        
+        .wishlist-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .wishlist-item .product-image {
+            width: 120px;
+            height: 120px;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .wishlist-item .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .wishlist-item .product-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .wishlist-item .product-info h4 {
+            margin: 0 0 10px;
+            font-size: 16px;
+            color: #333;
+        }
+        
+        .wishlist-item .product-info p {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e63946;
+            margin: 0 0 15px;
+        }
+        
+        .wishlist-item .product-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+        
+        .wishlist-item .remove-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #999;
+            font-size: 18px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .wishlist-item .remove-btn:hover {
+            color: #ff4d4d;
+        }
+        
+        .empty-wishlist {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-top: 30px;
+        }
+        
+        .empty-wishlist i {
+            font-size: 60px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .empty-wishlist h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .empty-wishlist p {
+            color: #777;
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+        
+        /* Button styles */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: #1723cd;
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background: #0e1899;
+        }
+        
+        .btn-outline {
+            background: white;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        
+        .btn-outline:hover {
+            border-color: #1723cd;
+            color: #1723cd;
+        }
+        
+        @media (max-width: 768px) {
+            .wishlist-item {
+                flex-direction: column;
+            }
+            
+            .wishlist-item .product-image {
+                width: 100%;
+                height: 180px;
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .wishlist-items {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section id="header">
+        <a href="#"><img src="logo.png" alt="logo"></a>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search products..." >
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+        </div>     
+
+        <div id="top-nav">
+            <ul id="navbar">
+                <li><a href="homepage.html" >Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html">Sign In</a></li>
+                <li><a href="wishlist.html" class="active"><i class="fa fa-heart-o"></i></a></li>
+                <li><a href="cart.html"><i class="fa fa-shopping-bag"></i></a></li>
+            </ul>
+        </div>
+    </section>
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My Wishlist - Sportivo</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="style.css">
+        <style>.wishlist-container {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+        }
+        
+        .wishlist-container h2 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+        
+        .wishlist-container i {
+            font-size: 2.5rem;
+            margin: 10px 0;
+        }
+        
+        .wishlist-container h3 {
+            color: #666;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .wishlist-container p {
+            color: #888;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+        
+        .wishlist-container .btn-primary {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #fff;
+            text-decoration: none;
+            background-color: #007bff;
+            border-radius: 5px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .wishlist-container .btn-primary:hover {
+            background-color: #0056b3;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        </style>
+    </head>
+    <body>
+    
+        <div class="wishlist-container">
+            <h2>My Wishlist</h2>
+            <i class="fa fa-heart-o" style="color: blue;"></i>
+            <h3>Your wishlist is empty</h3>
+            <p>Save your favorite items to see them here</p>
+            <a href="shop.html" class="btn btn-primary">Continue Shopping</a>
+        </div>
+        
+    
+    
+        
+    <footer class="section-p1">
+        <div class="column">
+            <img class="logo" src="logo.png" alt="Logo">
+            <h4>Contact</h4>
+            <p><strong>Address: </strong>535 KM Road, Ernakulam, Kerala</p>
+            <p><strong>Phone: </strong>+91 8745987452</p>
+            <p><strong>Hours: </strong>10:00 - 18:00. Mon - Sat</p>
+        </div>
+
+        <div class="col">
+            <h4>About</h4>
+            <a href="about.html">About us</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="contact.html">Contact us</a>
+        </div>
+
+        <div class="col">
+            <h4>My Account</h4>
+            
+            <a href="login.html">Sign In</a>
+            <a href="cart.html">View Cart</a>
+            <a href="wishlist.html">My Wishlist</a>
+            <a href="#">Help</a>
+        </div>
+
+        <div class="colpay">
+            <h4>Secured Payment Gateways</h4>
+            <img src="payment.png" alt="payment gateways">
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Sportivo - All rights reserved</p>
+        </div>
+
+    </footer>
+   
+
+    
+</body>
+</html>

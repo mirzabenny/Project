@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Men's Sports Collection - Sportivo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .hero-banner {
+            background-color: rgb(52, 126, 143);
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .category-filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            padding: 8px 20px;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .category-btn.active, 
+        .category-btn:hover {
+            background: #16ddc9;
+            color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .section-title h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            margin: 20px 0;
+            background-color: #f5f5f5;
+            color: #352dd2;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .back-button:hover {
+            background-color: #e0e0e0;
+            border-color: #ccc;
+        }
+        
+        .back-button i {
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <section id="header">
+        <a href="#"><img src="logo.png" alt="logo"></a>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search products..." >
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+        </div>     
+
+        <div id="top-nav">
+            <ul id="navbar">
+                <li><a href="homepage.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html">Sign In</a></li>
+                <li><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                <li><a href="cart.html"><i class="fa fa-shopping-bag"></i></a></li>
+            </ul>
+        </div>
+    </section>
+    
+
+
+    <div class="hero-banner">
+        <h1>Kids Sports Collection</h1>
+        </div>
+
+    <div class="category-filters">
+        <button class="category-btn active" data-category="all">All</button>
+        <button class="category-btn" data-category="Swimming">Swimming suits</button>
+    </div>
+
+    <section id="featured" class="section-p1">
+        <div class="pro-container">
+
+            <div class="pro" data-category="Swimming">
+                <img src="fproduct2.avif" alt="Boys’ suit" onclick="window.location.href='sproduct2.html';">
+                <div class="des">
+                    <span>NABAIJI</span>
+                    <h5>Boys’ suit - short sleeve shorty</h5>
+                    <div class="star">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <h4>&#8377;1,299</h4>
+                </div>
+                <a href="#"><i class="fa fa-shopping-cart cart"></i></a>
+            </div>
+
+            <div class="pro"  data-category="Swimming">
+                <img src="fproduct3.avif" alt="Girls Swimming Shorty swimsuit Blue Pink" onclick="window.location.href='sproduct3.html';">
+                <div class="des">
+                    <span>NABAIJI</span>
+                    <h5>Girls Swimming Shorty swimsuit</h5>
+                    <div class="star">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <h4>&#8377;1,299</h4>
+                </div>
+                <a href="#"><i class="fa fa-shopping-cart cart"></i></a>
+            </div>
+            
+        </div>
+    </section>
+
+
+
+    <section id="newsletter">
+        <div class="newstext">
+            <h4>Sign Up For Newsletter</h4>
+            <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+        </div>
+    <div class="form">
+        <input type="text" placeholder="Your email address">
+        <button class="normal">Sign Up</button>
+    </div>
+    </section>
+
+    <footer class="section-p1">
+        <div class="column">
+            <img class="logo" src="logo.png" alt="Logo">
+            <h4>Contact</h4>
+            <p><strong>Address: </strong>535 KM Road, Ernakulam, Kerala</p>
+            <p><strong>Phone: </strong>+91 8745987452</p>
+            <p><strong>Hours: </strong>10:00 - 18:00. Mon - Sat</p>
+        </div>
+
+        <div class="col">
+            <h4>About</h4>
+            <a href="about.html">About us</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="contact.html">Contact us</a>
+        </div>
+
+        <div class="col">
+            <h4>My Account</h4>
+            
+            <a href="login.html">Sign In</a>
+            <a href="cart.html">View Cart</a>
+            <a href="wishlist.html">My Wishlist</a>
+            <a href="#">Help</a>
+        </div>
+
+        <div class="colpay">
+            <h4>Secured Payment Gateways</h4>
+            <img src="payment.png" alt="payment gateways">
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Sportivo - All rights reserved</p>
+        </div>
+
+    </footer>
+
+    <script>
+        const filterButtons = document.querySelectorAll('.category-btn');
+const products = document.querySelectorAll('.pro');
+
+filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        // Update active button
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        
+        const category = button.dataset.category;
+        
+        // Filter products
+        products.forEach(product => {
+            const productCategory = product.dataset.category; // Changed from categories to category
+            if (category === 'all' || productCategory === category) {
+                product.style.display = 'block';
+            } else {
+                product.style.display = 'none';
+            }
+        });
+    });
+});
+    </script>
+</body>
+</html>

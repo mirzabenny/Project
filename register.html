@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Online Sports Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section id="header">
+        <a href="#"><img src="logo.png" alt="logo"></a>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search products...">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+        </div>
+
+        <div id="top-nav">
+            <ul id="navbar">
+                <li><a href="homepage.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html">Sign In</a></li>
+                <li><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                <li><a href="cart.html"><i class="fa fa-shopping-bag"></i></a></li>
+            </ul>
+        </div>
+    </section>
+
+ 
+
+    <section id="login-section">
+        <div class="login-container">
+            <h2>Create an Account</h2>
+            <form id="registrationForm" onsubmit="return validateForm()">
+                <label for="name">Name:</label>
+                <input type="text" id="name">
+                <span class="error" id="usernameError"></span>
+
+                <label for="email">Email:</label>
+                <input type="text" id="email">
+                <span class="error" id="emailError"></span>
+
+                <label for="password">Password:</label>
+                <div class="password-toggle">
+                    <input type="password" id="password">
+                    <i class="fa fa-eye" onclick="togglePassword('password')"></i>
+                </div>
+                <span class="error" id="passwordError"></span>
+                
+                <label for="confirmPassword">Confirm Password:</label>
+                <div class="password-toggle">
+                    <input type="password" id="confirmPassword">
+                    <i class="fa fa-eye" onclick="togglePassword('confirmPassword')"></i>
+                </div>
+                <span class="error" id="confirmPasswordError"></span>
+        
+                
+                <button type="submit">Register</button>
+            </form>
+            
+          
+            
+            <div class="login-options" >
+                <p>Already reistered? <a href="login.html">Sign In</a></p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="section-p1">
+        <div class="column">
+            <img class="logo" src="logo.png" alt="Logo">
+            <h4>Contact</h4>
+            <p><strong>Address: </strong>535 KM Road, Ernakulam, Kerala</p>
+            <p><strong>Phone: </strong>+91 8745987452</p>
+            <p><strong>Hours: </strong>10:00 - 18:00. Mon - Sat</p>
+        </div>
+
+        <div class="col">
+            <h4>About</h4>
+            <a href="about.html">About us</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="contact.html">Contact us</a>
+        </div>
+
+        <div class="col">
+            <h4>My Account</h4>
+            
+            <a href="login.html">Sign In</a>
+            <a href="cart.html">View Cart</a>
+            <a href="wishlist.html">My Wishlist</a>
+            <a href="#">Help</a>
+        </div>
+
+        <div class="colpay">
+            <h4>Secured Payment Gateways</h4>
+            <img src="payment.png" alt="payment gateways">
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Sportivo - All rights reserved</p>
+        </div>
+
+    </footer>
+    <script>
+        function validateForm() {
+            let isValid = true;
+
+            // Username Validation
+            let username = document.getElementById("name").value;
+            let usernameError = document.getElementById("usernameError");
+            if (!/^[A-Za-z]{3,}$/.test(username)) {
+                usernameError.innerText = "Name must be at least 3 characters (letters only)";
+                isValid = false;
+            } else {
+                usernameError.innerText = "";
+            }
+
+            // Password Validation
+            let password = document.getElementById("password").value;
+            let passwordError = document.getElementById("passwordError");
+            let passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            if (!passwordPattern.test(password)) {
+                passwordError.innerText = "Password must be at least 8 characters with uppercase, lowercase, number & special character";
+                isValid = false;
+            } else {
+                passwordError.innerText = "";
+            }
+
+            // Confirm Password Validation
+            let confirmPassword = document.getElementById("confirmPassword").value;
+            let confirmPasswordError = document.getElementById("confirmPasswordError");
+            if (confirmPassword !== password) {
+                confirmPasswordError.innerText = "Passwords do not match";
+                isValid = false;
+            } else {
+                confirmPasswordError.innerText = "";
+            }
+
+
+            // Email Validation
+            let email = document.getElementById("email").value;
+            let emailError = document.getElementById("emailError");
+            let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailPattern.test(email)) {
+                emailError.innerText = "Enter a valid email address";
+                isValid = false;
+            } else {
+                emailError.innerText = "";
+            }
+
+
+          
+
+           
+            // If all validations pass, return true; else, return false
+            if (!isValid) {
+                return false;
+            } else {
+                alert("Form submitted successfully!");
+                return true;
+            }
+        }
+
+        function togglePassword(fieldId) {
+            const passwordField = document.getElementById(fieldId);
+            const icon = passwordField.parentElement.querySelector('i');
+            
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                passwordField.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+    </script>
+  
+</body>
+</html>
