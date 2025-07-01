@@ -29,6 +29,8 @@ body {
     overflow: hidden;
     background-color: #fff;
     transition: all 0.3s ease;
+    width: auto; 
+    display: inline-block;
 }
 
 .search-container:focus-within {
@@ -42,6 +44,8 @@ body {
     font-size: 14px;
     width: 250px;
     outline: none;
+    width: 220px; 
+    max-width: 100%;
 }
 
 .search-input:focus {
@@ -52,6 +56,11 @@ body {
     padding: 0 10px;
     color: #777;
     cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.search-icon:hover {
+    color: #4b97e3;
 }
 
 /* Main Navigation */
@@ -250,6 +259,23 @@ body {
     bottom: 20px;
     right: 10px;
     background-color: lightgrey;
+}
+#featured .pro .wishlist{
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50px;
+    font-weight: 500;
+    color: red;
+    position: absolute;
+    bottom: 20px;
+    right: 60px;
+    background-color: lightgrey;
+    text-align: center;
+}
+#featured .pro .wishlist:hover{
+    background-color: #ffebee;
+    color: #d32f2f;
 }
 
 
@@ -833,6 +859,134 @@ button.normal{
 
 .wishlist-btn .fa-heart {
     color: #ff4d4d;
+}
+
+/* Search Results Styling */
+#searchResults {
+    background-color: #f8f8f8;
+    min-height: 400px;
+}
+
+#searchResults .colo h1 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#searchResults .colo h5 {
+    color: #666;
+    font-weight: normal;
+    margin-bottom: 30px;
+}
+
+#noResults {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin: 20px auto;
+    max-width: 400px;
+}
+
+#noResults h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#noResults p {
+    color: #666;
+    font-size: 14px;
+}
+
+/* User Menu Styles */
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-menu span {
+    color: #007bff;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.user-menu a {
+    color: #e63946;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.user-menu a:hover {
+    color: #c1121f;
+}
+
+/* Authentication Status */
+#auth-link {
+    position: relative;
+}
+
+#auth-link .user-menu {
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+}
+
+/* Error message styles */
+.error-message {
+    color: #e63946;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.success-message {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-webkit-credentials-auto-fill-button {
+    display: none !important;
+}
+
+input[type="password"]::-webkit-input-password-button {
+    display: none !important;
+}
+
+input[type="password"]::-webkit-input-password-toggle-button {
+    display: none !important;
+}
+
+.logout-link {
+    color: #007bff;
+    font-weight: 600;
+    margin-left: 8px;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.logout-link:hover {
+    color: #e63946;
+}
+#navbar .fa-user {
+    font-size: 20px;
+    color: #007bff;
+    margin-left: 18px;
+    margin-right: 8px;
+    vertical-align: middle;
+    transition: color 0.2s;
+}
+#navbar .fa-user:hover {
+    color: #7133ff;
 }
 
 

@@ -6,6 +6,252 @@
     <title>Your Cart - Sportivo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
+    <script src="cart-utils.js"></script>
+    <script src="wishlist-utils.js"></script>
+    <style>
+        /* Cart specific styles */
+        .cart-section {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .cart-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .cart-header h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .cart-items {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .cart-item {
+            display: flex;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 20px;
+            border: 1px solid #eee;
+            gap: 20px;
+        }
+        
+        .cart-item-image {
+            flex-shrink: 0;
+        }
+        
+        .cart-item-image img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-details h4 {
+            margin: 0 0 10px;
+            font-size: 18px;
+            color: #333;
+        }
+        
+        .cart-item-details .brand {
+            color: #666;
+            margin: 0 0 10px;
+        }
+        
+        .cart-item-details .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #e63946;
+            margin: 0 0 15px;
+        }
+        
+        .cart-item-options {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .option-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .option-group label {
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
+        
+        .option-group select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .quantity-controls button {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        
+        .quantity-controls button:hover {
+            background: #f5f5f5;
+        }
+        
+        .quantity-controls span {
+            min-width: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .cart-item-actions {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .remove-btn {
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        
+        .remove-btn:hover {
+            background: #ff3333;
+        }
+        
+        .cart-summary {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-top: 30px;
+            border: 1px solid #eee;
+        }
+        
+        .cart-summary h3 {
+            margin: 0 0 20px;
+            color: #333;
+        }
+        
+        .cart-total {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e63946;
+            margin: 20px 0;
+        }
+        
+        .cart-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: #1723cd;
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background: #0e1899;
+        }
+        
+        .btn-outline {
+            background: white;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        
+        .btn-outline:hover {
+            border-color: #1723cd;
+            color: #1723cd;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-top: 30px;
+        }
+        
+        .empty-cart i {
+            font-size: 60px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .empty-cart h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .empty-cart p {
+            color: #777;
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+        
+        @media (max-width: 768px) {
+            .cart-item {
+                flex-direction: column;
+            }
+            
+            .cart-item-image img {
+                width: 100%;
+                height: 200px;
+            }
+            
+            .cart-item-options {
+                flex-direction: column;
+            }
+            
+            .cart-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
     <section id="header">
@@ -22,141 +268,60 @@
                 <li><a href="homepage.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html">Sign In</a></li>
+                <li id="auth-link"><a href="login.html">Sign In</a></li>
                 <li><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
                 <li><a href="cart.html" class="active"><i class="fa fa-shopping-bag"></i></a></li>
             </ul>
         </div>
     </section>
 
-    
-    
-    <section id="cart-head">
-        <div class="cartin">
-            <h2>Your Shopping Cart</h2>
-            <h3>Missing cart items?</h3>
-            <img src="missingcart.webp" alt="missing cart">
+    <div class="cart-section">
+        <div class="cart-header">
+            <h1>Your Shopping Cart</h1>
         </div>
 
-
-        <div class="nocart">
-            <h3>Please login to view your cart</h3>
-            <p>You need to be logged in to see your cart items and proceed to checkout</p>
-            <button class="normal" onclick="window.location.href='login.html'">LOGIN NOW</button>
-            <button class="normal" onclick="window.location.href='shop.html'">CONTINUE SHOPPING</button>
+        <!-- Cart Items Container -->
+        <div id="cart-items" class="cart-items">
+            <!-- Cart items will be loaded here -->
         </div>
 
-    </section>
+        <!-- Empty Cart Message -->
+        <div id="empty-cart" class="empty-cart" style="display: none;">
+            <i class="fa fa-shopping-cart"></i>
+            <h3>Your cart is empty</h3>
+            <p>Looks like you haven't added any items to your cart yet.</p>
+            <div class="cart-actions">
+                <a href="shop.html" class="btn btn-primary">Start Shopping</a>
+            </div>
+        </div>
 
-    <section id="featured" class="section-p1">
-        <div class="colo">
-        <h1>Recommended for you</h1>
-        
+        <!-- Cart Summary -->
+        <div class="cart-summary">
+            <h3>Order Summary</h3>
+            <div class="cart-total">
+                Total: <span id="cart-total">₹0</span>
+            </div>
+            <div class="cart-actions">
+                <button class="btn btn-primary" onclick="proceedToCheckout()">Proceed to Checkout</button>
+                <button class="btn btn-outline" onclick="clearCart()">Clear Cart</button>
+                <a href="shop.html" class="btn btn-outline">Continue Shopping</a>
+            </div>
+        </div>
     </div>
-        <div class="pro-container">
-            <div class="pro">
-                <img src="newarrivals1.avif" alt="Cotton Men's Fitness T-Shirt 100 Sport tee - Old Purple">
-                <div class="des">
-                    <span>DOMYOS</span>
-                    <h5>Cotton Men's Fitness T-Shirt 100 Sport tee - Old Purple</h5>
-                    <div class="star">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <h4>&#8377;299</h4>
-                </div>
-                <a href="#"><i class="fa fa-shopping-cart cart"></i></a>
-            </div>
 
-            <div class="pro">
-                <img src="newarrivals2.avif" alt="Hiking Backpack 10L, NH100 Arpenaz blue">
-                <div class="des">
-                    <span>QUECHUA</span>
-                    <h5>Hiking Backpack 10L, NH100 Arpenaz blue</h5>
-                    <div class="star">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <h4>&#8377;499</h4>
-                </div>
-                <a href="#"><i class="fa fa-shopping-cart cart"></i></a>
-            </div>
-
-            <div class="pro">
-                <img src="newarrivals3.avif" alt="Women’s waterproof hiking jacket -10°C, NH500 - Blue">
-                <div class="des">
-                    <span>QUECHUA</span>
-                    <h5>Women’s waterproof hiking jacket -10°C, NH500 - Blue</h5>
-                    <div class="star">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <h4>&#8377;3,999</h4>
-                </div>
-                <a href="#"><i class="fa fa-shopping-cart cart"></i></a>
-            </div>
-
-            <div class="pro">
-                <img src="newarrivals4.avif" alt="RUN ACTIVE Lightweight Cushioned Men Running Shoes UPTO 10 km/wk - Carmine Red">
-                <div class="des">
-                    <span>KALENJI</span>
-                    <h5>RUN ACTIVE Lightweight Cushioned Men Running Shoes UPTO 10 km/wk - Carmine Red</h5>
-                    <div class="star">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <h4>&#8377;2,299</h4>
-                </div>
-                <a href="#"><i class="fa fa-shopping-cart cart"></i></a>
-            </div>
-
-            <div class="pro">
-                <img src="newarrivals5.avif" alt="Aluminium Water Bottle with Easy Locking Cap - 1 Litre Sage Green">
-                <div class="des">
-                    <span>QUECHUA</span>
-                    <h5>Aluminium Water Bottle with Easy Locking Cap - 1 Litre Sage Green</h5>
-                    <div class="star">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <h4>&#8377;2,299</h4>
-                </div>
-                <a href="#"><i class="fa fa-shopping-cart cart"></i></a>
-            </div>
-
-            <div class="pro">
-                <img src="newarrivals6.avif" alt="RUN CUSHION Comfortale Lite Antislip Women Running Shoes Turquoise Green">
-                <div class="des">
-                    <span>KALENJI</span>
-                    <h5>RUN CUSHION Comfortale Lite Antislip Women Running Shoes Turquoise Green</h5>
-                    <div class="star">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <h4>&#8377;1,699</h4>
-                </div>
-                <a href="#"><i class="fa fa-shopping-cart cart"></i></a>
-            </div>
-            
+    <!-- Purchase History Section -->
+    <div class="cart-section" id="purchase-history-section" style="display:none;">
+        <div class="cart-header">
+            <h2>Purchase History</h2>
         </div>
+        <div id="purchase-history-container"></div>
+    </div>
+
+    <!-- Search Results Section -->
+    <section id="searchResults" class="section-p1" style="display: none;">
+        <h1>Search Results</h1>
+        <h5 id="searchResultsCount"></h5>
+        <div id="searchResultsContainer" class="pro-container"></div>
     </section>
 
     <footer class="section-p1">
@@ -194,5 +359,298 @@
         </div>
 
     </footer>
+
+    <script>
+        // Authentication UI for all pages
+        function checkAuthStatus() {
+            const token = localStorage.getItem('token');
+            const user = localStorage.getItem('user');
+            const authLink = document.getElementById('auth-link');
+            if (token && user) {
+                const userData = JSON.parse(user);
+                authLink.innerHTML = `
+                    <div class="user-menu">
+                        <span>Welcome, ${userData.name}</span>
+                        <a href="#" onclick="logout()">Logout</a>
+                    </div>
+                `;
+            } else {
+                authLink.innerHTML = '<a href="login.html">Sign In</a>';
+            }
+        }
+        
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            localStorage.removeItem('cart');
+            localStorage.removeItem('wishlist');
+            updateCartIcon();
+            updateWishlistBadge();
+            alert('Logged out successfully!');
+            window.location.reload();
+        }
+
+        async function proceedToCheckout() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('Please login to proceed to checkout.');
+                window.location.href = 'login.html';
+                return;
+            }
+            let total = 0;
+            cart.forEach(item => {
+                const price = parseFloat(item.price.replace(/[^\d.]/g, ''));
+                total += price * (item.quantity || 1);
+            });
+            try {
+                const res = await fetch('/api/purchase', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify({ items: cart, total })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    localStorage.setItem('cart', JSON.stringify([]));
+                    updateCartIcon && updateCartIcon();
+                    alert('Purchase successful! Your order has been placed.');
+                    loadCart && loadCart();
+                } else {
+                    alert('Could not complete purchase. Please try again.');
+                }
+            } catch (err) {
+                alert('Could not complete purchase. Please try again.');
+            }
+        }
+
+        function getProductData(productId) {
+            const productMap = {
+                'recommended-tshirt-1': {
+                    id: 'recommended-tshirt-1',
+                    name: 'Cotton Men\'s Fitness T-Shirt 100 Sport tee - Old Purple',
+                    brand: 'DOMYOS',
+                    price: '₹299',
+                    image: 'newarrivals1.avif',
+                    category: 'T-shirts',
+                    link: 'sproduct7.html'
+                },
+                'recommended-backpack-1': {
+                    id: 'recommended-backpack-1',
+                    name: 'Hiking Backpack 10L, NH100 Arpenaz blue',
+                    brand: 'QUECHUA',
+                    price: '₹499',
+                    image: 'newarrivals2.avif',
+                    category: 'Bags',
+                    link: 'sproduct8.html'
+                },
+                'recommended-jacket-1': {
+                    id: 'recommended-jacket-1',
+                    name: 'Women\'s waterproof hiking jacket -10°C, NH500 - Blue',
+                    brand: 'QUECHUA',
+                    price: '₹3,999',
+                    image: 'newarrivals3.avif',
+                    category: 'Jacket',
+                    link: 'sproduct9.html'
+                },
+                'recommended-shoes-1': {
+                    id: 'recommended-shoes-1',
+                    name: 'RUN ACTIVE Lightweight Cushioned Men Running Shoes UPTO 10 km/wk - Carmine Red',
+                    brand: 'KALENJI',
+                    price: '₹2,299',
+                    image: 'newarrivals4.avif',
+                    category: 'Shoes',
+                    link: 'sproduct10.html'
+                },
+                'recommended-bottle-1': {
+                    id: 'recommended-bottle-1',
+                    name: 'Aluminium Water Bottle with Easy Locking Cap - 1 Litre Sage Green',
+                    brand: 'QUECHUA',
+                    price: '₹2,299',
+                    image: 'newarrivals5.avif',
+                    category: 'Accessories',
+                    link: 'sproduct11.html'
+                },
+                'recommended-womens-shoes-1': {
+                    id: 'recommended-womens-shoes-1',
+                    name: 'RUN CUSHION Comfortale Lite Antislip Women Running Shoes Turquoise Green',
+                    brand: 'KALENJI',
+                    price: '₹1,699',
+                    image: 'newarrivals6.avif',
+                    category: 'Shoes',
+                    link: 'sproduct12.html'
+                }
+            };
+            return productMap[productId];
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthStatus();
+            loadCart();
+            updateCartIcon();
+            updateWishlistBadge();
+            loadPurchaseHistory();
+        });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      updateCartIcon && updateCartIcon();
+      updateWishlistBadge && updateWishlistBadge();
+      initializeWishlistIcons && initializeWishlistIcons();
+    });
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'cart' || e.key === 'wishlist') {
+        updateCartIcon && updateCartIcon();
+        updateWishlistBadge && updateWishlistBadge();
+        initializeWishlistIcons && initializeWishlistIcons();
+      }
+    });
+    </script>
+    <script src="all-products.js"></script>
+    <script>
+    // Load purchase history
+    async function loadPurchaseHistory() {
+        const token = localStorage.getItem('token');
+        if (!token) return;
+        try {
+            const res = await fetch('/api/purchase-history', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            const data = await res.json();
+            const section = document.getElementById('purchase-history-section');
+            const container = document.getElementById('purchase-history-container');
+            if (data.success && data.history && data.history.length > 0) {
+                section.style.display = 'block';
+                container.innerHTML = data.history.map(purchase => `
+                    <div class="purchase-entry" style="margin-bottom: 32px;">
+                        <div><strong>Date:</strong> ${new Date(purchase.purchased_at).toLocaleString()}</div>
+                        <div><strong>Total:</strong> ₹${purchase.total}</div>
+                        <div><strong>Items:</strong>
+                            <div class="cart-items" style="margin-top: 12px;">
+                                ${purchase.items.map(item => `
+                                    <div class="cart-item" style="box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 12px;">
+                                        <div class="cart-item-image">
+                                            <img src="${item.image}" alt="${item.name}">
+                                        </div>
+                                        <div class="cart-item-details">
+                                            <h4>${item.name}</h4>
+                                            <p class="brand">${item.brand}</p>
+                                            <p class="price">${item.price}</p>
+                                            <p>Size: ${item.size}</p>
+                                            <p>Color: ${item.color}</p>
+                                            <p>Quantity: ${item.quantity || 1}</p>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                section.style.display = 'block';
+                container.innerHTML = '<p>No purchase history found.</p>';
+            }
+        } catch (err) {
+            const section = document.getElementById('purchase-history-section');
+            const container = document.getElementById('purchase-history-container');
+            section.style.display = 'block';
+            container.innerHTML = '<p>Could not load purchase history.</p>';
+        }
+    }
+    </script>
+    <script>
+    // Search functionality
+    function performSearch() {
+        const searchTerm = document.querySelector('.search-input').value.toLowerCase().trim();
+        if (searchTerm === '') {
+            hideSearchResults();
+            return;
+        }
+        function getVariants(term) {
+            const variants = [term];
+            if (term.endsWith('s')) variants.push(term.slice(0, -1));
+            else variants.push(term + 's');
+            return variants;
+        }
+        const searchVariants = getVariants(searchTerm);
+        function fuzzyMatch(str, term) {
+            return str.includes(term) || str.replace(/s$/, '').includes(term.replace(/s$/, ''));
+        }
+        const filteredProducts = allProducts.filter(product => {
+            const fields = [
+                product.name?.toLowerCase() || '',
+                product.brand?.toLowerCase() || '',
+                product.category?.toLowerCase() || '',
+                product.description?.toLowerCase() || ''
+            ];
+            return searchVariants.some(variant =>
+                fields.some(field => fuzzyMatch(field, variant))
+            );
+        });
+        displaySearchResults(filteredProducts, searchTerm);
+    }
+    function displaySearchResults(results, searchTerm) {
+        const searchResultsSection = document.getElementById('searchResults');
+        const searchResultsContainer = document.getElementById('searchResultsContainer');
+        const noResults = document.getElementById('noResults');
+        const searchResultsCount = document.getElementById('searchResultsCount');
+        document.querySelectorAll('section:not(#searchResults):not(#header):not(footer)').forEach(section => {
+            section.style.display = 'none';
+        });
+        searchResultsSection.style.display = 'block';
+        if (results.length === 0) {
+            searchResultsContainer.innerHTML = '';
+            noResults.style.display = 'block';
+            searchResultsCount.textContent = `No results found for "${searchTerm}"`;
+        } else {
+            noResults.style.display = 'none';
+            searchResultsCount.textContent = `${results.length} result(s) found for "${searchTerm}"`;
+            searchResultsContainer.innerHTML = results.map(product => `
+                <div class="pro">
+                    <img src="${product.image}" alt="${product.name}" onclick="window.location.href='${product.link}';">
+                    <div class="des">
+                        <span>${product.brand}</span>
+                        <h5>${product.name}</h5>
+                        <div class="star">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <h4>${product.price}</h4>
+                    </div>
+                    <a href="javascript:void(0)" onclick="handleCartClick(event, '${product.id}')"><i class="fa fa-shopping-cart cart"></i></a>
+                    <a href="javascript:void(0)" onclick="handleWishlistToggle(event, '${product.id}')"><i class="fa fa-heart-o wishlist" data-product-id="${product.id}"></i></a>
+                </div>
+            `).join('');
+        }
+    }
+    function hideSearchResults() {
+        const searchResultsSection = document.getElementById('searchResults');
+        searchResultsSection.style.display = 'none';
+        document.querySelectorAll('section:not(#searchResults)').forEach(section => {
+            section.style.display = 'block';
+        });
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.querySelector('.search-input');
+        const searchIcon = document.querySelector('.search-icon');
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') performSearch();
+        });
+        if (searchIcon) searchIcon.addEventListener('click', performSearch);
+        searchInput.addEventListener('input', function() {
+            if (this.value === '') hideSearchResults();
+        });
+    });
+    </script>
 </body>
 </html>

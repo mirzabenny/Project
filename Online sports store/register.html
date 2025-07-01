@@ -34,7 +34,7 @@
     <section id="login-section">
         <div class="login-container">
             <h2>Create an Account</h2>
-            <form id="registrationForm" onsubmit="return validateForm()">
+            <form id="registrationForm" onsubmit="return validateForm(event)">
                 <label for="name">Name:</label>
                 <input type="text" id="name">
                 <span class="error" id="usernameError"></span>
@@ -59,6 +59,7 @@
         
                 
                 <button type="submit">Register</button>
+                <button type="reset" style="margin-top:10px;">Reset</button>
             </form>
             
           
@@ -104,15 +105,32 @@
         </div>
 
     </footer>
+
+    <!-- Popup for success/error messages -->
+    <div id="popup-message" style="display:none; position:fixed; top:30px; left:50%; transform:translateX(-50%); z-index:9999; min-width:300px; max-width:90vw; padding:20px; border-radius:8px; font-size:16px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.15);"></div>
+
     <script>
-        function validateForm() {
+        function showPopup(message, type = 'success') {
+            const popup = document.getElementById('popup-message');
+            popup.textContent = message;
+            popup.style.display = 'block';
+            popup.style.backgroundColor = type === 'success' ? '#d4edda' : '#f8d7da';
+            popup.style.color = type === 'success' ? '#155724' : '#721c24';
+            popup.style.border = type === 'success' ? '1px solid #c3e6cb' : '1px solid #f5c6cb';
+            // Auto-close after 3 seconds
+            setTimeout(() => { popup.style.display = 'none'; }, 3000);
+        }
+
+        async function validateForm(event) {
+            if (event) event.preventDefault();
             let isValid = true;
 
             // Username Validation
-            let username = document.getElementById("name").value;
+            let username = document.getElementById("name").value.trim();
             let usernameError = document.getElementById("usernameError");
-            if (!/^[A-Za-z]{3,}$/.test(username)) {
-                usernameError.innerText = "Name must be at least 3 characters (letters only)";
+            // Allow letters, spaces, hyphens, apostrophes, at least 3 characters
+            if (!/^[A-Za-z][A-Za-z\s'-]{1,}[A-Za-z]$/.test(username) || username.length < 3) {
+                usernameError.innerText = "Name must be at least 3 characters and can include letters, spaces, hyphens, and apostrophes (e.g., Benny Mirza, O'Connor, Jean-Luc)";
                 isValid = false;
             } else {
                 usernameError.innerText = "";
@@ -139,7 +157,6 @@
                 confirmPasswordError.innerText = "";
             }
 
-
             // Email Validation
             let email = document.getElementById("email").value;
             let emailError = document.getElementById("emailError");
@@ -151,16 +168,54 @@
                 emailError.innerText = "";
             }
 
-
-          
-
-           
-            // If all validations pass, return true; else, return false
+            // If all validations pass, proceed with registration
             if (!isValid) {
                 return false;
             } else {
-                alert("Form submitted successfully!");
-                return true;
+                try {
+                    const response = await fetch('/api/register', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            name: username,
+                            email: email,
+                            password: password
+                        })
+                    });
+
+                    // Log status and response for debugging
+                    console.log('Status:', response.status);
+                    let data;
+                    try {
+                        data = await response.json();
+                        console.log('Response JSON:', data);
+                    } catch (jsonErr) {
+                        console.error('Error parsing JSON:', jsonErr);
+                        const text = await response.text();
+                        console.error('Raw response text:', text);
+                        showPopup('Registration failed: Invalid server response.', 'error');
+                        return false;
+                    }
+
+                    if (response.ok && data.success) {
+                        // Store token and user data
+                        localStorage.setItem('token', data.token);
+                        localStorage.setItem('user', JSON.stringify(data.user));
+                        
+                        showPopup("Registration successful! Welcome to Sportivo, " + data.user.name, 'success');
+                        // Redirect to homepage after 2 seconds
+                        setTimeout(() => { window.location.href = 'homepage.html'; }, 2000);
+                    } else {
+                        let msg = (data && data.message) ? data.message : 'Registration failed. Please try again.';
+                        showPopup(msg, 'error');
+                    }
+                } catch (error) {
+                    console.error('Registration error:', error);
+                    showPopup("An error occurred during registration. Please try again.\n" + error, 'error');
+                }
+                return false; // Prevent form submission
             }
         }
 
@@ -178,7 +233,18 @@
                 icon.classList.add("fa-eye");
             }
         }
+
+        // Check if user is already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const token = localStorage.getItem('token');
+            const user = localStorage.getItem('user');
+            
+            if (token && user) {
+                // User is already logged in, redirect to homepage
+                window.location.href = 'homepage.html';
+            }
+        });
     </script>
-  
+    <script src="cart-utils.js"></script>
 </body>
 </html>

@@ -58,21 +58,7 @@
                 <h4>Cotton Men's Fitness T-Shirt 100 Sport tee</h4>
                 <h2>&#8377;299</h2>
            
-            <select>
-                <option>Select Size</option>
-                <option>Small</option>
-                <option>Medium</option>
-                <option>Large</option>
-            </select>
-            <select>
-                <option>Select Colour</option>
-                <option>Pink</option>
-                <option>White</option>
-                <option>Orange</option>
-                <option>Blue</option>
-            </select>
-            <input type="number" min="0" value="1">
-            <button class="normal">Add to Cart</button>
+            
             <h4>Product Details</h4>
             <span>This T-shirt is the perfect basic. It's a simple and easy basic.
                 100% cotton fabric for softness and comfort.
@@ -140,6 +126,21 @@
     </div>
 
 </footer>
+<script src="wishlist-utils.js"></script>
+<script src="cart-utils.js"></script>
+<script src="all-products.js"></script>
+<!-- Search Results Section -->
+<section id="searchResults" class="section-p1" style="display: none;">
+    <div class="colo">
+        <h1>Search Results</h1>
+        <h5 id="searchResultsCount"></h5>
+    </div>
+    <div id="searchResultsContainer" class="pro-container"></div>
+    <div id="noResults" style="display: none; text-align: center; padding: 50px;">
+        <h3>No products found</h3>
+        <p>Try searching with different keywords</p>
+    </div>
+</section>
 <script>
     var MainImg = document.getElementById("MainImg");
     var  smallimg = document.getElementsByClassName("small-img");
@@ -156,6 +157,125 @@
     smallimg[3].onclick = function(){
         MainImg.src = smallimg[3].src;
     }
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Search functionality
+    function performSearch() {
+        const searchTerm = document.querySelector('.search-input').value.toLowerCase().trim();
+        if (searchTerm === '') {
+            hideSearchResults();
+            return;
+        }
+        function getVariants(term) {
+            const variants = [term];
+            if (term.endsWith('s')) variants.push(term.slice(0, -1));
+            else variants.push(term + 's');
+            return variants;
+        }
+        const searchVariants = getVariants(searchTerm);
+        function fuzzyMatch(str, term) {
+            return str.includes(term) || str.replace(/s$/, '').includes(term.replace(/s$/, ''));
+        }
+        const filteredProducts = allProducts.filter(product => {
+            const fields = [
+                product.name?.toLowerCase() || '',
+                product.brand?.toLowerCase() || '',
+                product.category?.toLowerCase() || '',
+                product.description?.toLowerCase() || ''
+            ];
+            return searchVariants.some(variant =>
+                fields.some(field => fuzzyMatch(field, variant))
+            );
+        });
+        displaySearchResults(filteredProducts, searchTerm);
+    }
+    function displaySearchResults(results, searchTerm) {
+        const searchResultsSection = document.getElementById('searchResults');
+        const searchResultsContainer = document.getElementById('searchResultsContainer');
+        const noResults = document.getElementById('noResults');
+        const searchResultsCount = document.getElementById('searchResultsCount');
+        document.querySelectorAll('section:not(#searchResults):not(#header):not(#newsletter):not(footer)').forEach(section => {
+            section.style.display = 'none';
+        });
+        searchResultsSection.style.display = 'block';
+        if (results.length === 0) {
+            searchResultsContainer.innerHTML = '';
+            noResults.style.display = 'block';
+            searchResultsCount.textContent = `No results found for "${searchTerm}"`;
+        } else {
+            noResults.style.display = 'none';
+            searchResultsCount.textContent = `${results.length} result(s) found for "${searchTerm}"`;
+            searchResultsContainer.innerHTML = results.map(product => `
+                <div class="pro">
+                    <img src="${product.image}" alt="${product.name}" onclick="window.location.href='${product.link}';">
+                    <div class="des">
+                        <span>${product.brand}</span>
+                        <h5>${product.name}</h5>
+                        <div class="star">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <h4>${product.price}</h4>
+                    </div>
+                    <a href="javascript:void(0)" onclick="handleCartClick(event, '${product.id}')"><i class="fa fa-shopping-cart cart"></i></a>
+                    <a href="javascript:void(0)" onclick="handleWishlistToggle(event, '${product.id}')"><i class="fa fa-heart-o wishlist" data-product-id="${product.id}"></i></a>
+                </div>
+            `).join('');
+        }
+    }
+    function hideSearchResults() {
+        const searchResultsSection = document.getElementById('searchResults');
+        searchResultsSection.style.display = 'none';
+        document.querySelectorAll('section:not(#searchResults)').forEach(section => {
+            section.style.display = 'block';
+        });
+    }
+    // Search bar event listeners
+    const searchInput = document.querySelector('.search-input');
+    const searchIcon = document.querySelector('.search-icon');
+    searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') performSearch();
+    });
+    if (searchIcon) searchIcon.addEventListener('click', performSearch);
+    searchInput.addEventListener('input', function() {
+        if (this.value === '') hideSearchResults();
+    });
+    // Add to Cart button logic
+    const addToCartBtn = document.querySelector('.single-pro-details button.normal');
+    if (addToCartBtn) {
+        addToCartBtn.onclick = function(e) {
+            e.preventDefault();
+            const productData = {
+                id: 'newarrivals1',
+                name: "Cotton Men's Fitness T-Shirt 100 Sport tee",
+                brand: 'DOMYOS',
+                price: '₹299',
+                image: 'newarrivals1.avif',
+                category: 'T-shirts',
+                link: 'sproduct7.html'
+            };
+            const selects = document.querySelectorAll('.single-pro-details select');
+            const size = selects[0]?.value || 'Small';
+            const color = selects[1]?.value || 'Pink';
+            const quantity = parseInt(document.querySelector('.single-pro-details input[type="number"]').value) || 1;
+            handleCartClick(e, productData.id, size, color, quantity, productData);
+        };
+    }
+    // Badge updates
+    updateCartIcon && updateCartIcon();
+    updateWishlistBadge && updateWishlistBadge();
+    initializeWishlistIcons && initializeWishlistIcons();
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'cart' || e.key === 'wishlist') {
+            updateCartIcon && updateCartIcon();
+            updateWishlistBadge && updateWishlistBadge();
+            initializeWishlistIcons && initializeWishlistIcons();
+        }
+    });
+});
 </script>
 
 
